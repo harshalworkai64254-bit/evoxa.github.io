@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact Evoxa</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="starfield"></div>
+<div class="starfield starfield-2"></div>
+
+<header class="fade-in">
+    <div class="container nav-container">
+        <div class="logo-wrap">
+            <div class="logo-orbit"></div>
+            <h1 class="logo">Evoxa</h1>
+        </div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="login.html">Login</a>
+            <a href="billing.html" class="cta">Billing</a>
+        </nav>
+    </div>
+</header>
+
+<section class="section fade-in-up">
+    <div class="container">
+        <h2 class="section-title">Contact Us</h2>
+        <p style="text-align:center; max-width:700px; margin:auto;">
+            Have a question? Want to work with us?  
+            Send us a message and we’ll get back to you shortly.
+        </p>
+
+        <form id="contactUsForm" class="auth-form">
+
+            <div class="evoxa-input-group">
+                <label class="evoxa-label">Your Name</label>
+                <input type="text" id="cuName" class="evoxa-input" placeholder="John Doe" required>
+            </div>
+
+            <div class="evoxa-input-group">
+                <label class="evoxa-label">Email Address</label>
+                <input type="email" id="cuEmail" class="evoxa-input" placeholder="you@example.com" required>
+            </div>
+
+            <div class="evoxa-input-group">
+                <label class="evoxa-label">Phone Number</label>
+                <input type="text" id="cuPhone" class="evoxa-input" placeholder="+44 7123 456789" required>
+            </div>
+
+            <div class="evoxa-input-group">
+                <label class="evoxa-label">Message</label>
+                <textarea id="cuMessage" class="evoxa-input" style="height:120px;" placeholder="How can we help?" required></textarea>
+            </div>
+
+            <button type="submit" class="evoxa-btn">Send Message</button>
+        </form>
+    </div>
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>

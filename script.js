@@ -1,3 +1,5 @@
+const BACKEND_URL = "https://evoxa.onrender.com";
+
 // Scroll animations
 const animatedElements = document.querySelectorAll('.fade-in, .fade-in-up, .slide-up');
 
@@ -16,11 +18,93 @@ function revealOnScroll() {
 window.addEventListener('scroll', revealOnScroll);
 revealOnScroll();
 
-// Contact form (placeholder)
-document.getElementById("contactForm").addEventListener("submit", function(e) {
-    e.preventDefault();
-    alert("Thanks! We’ll reach out within 24 hours.");
-});
+// Signup logic (create Evoxa ID)
+const signupForm = document.getElementById("signupForm");
+if (signupForm) {
+    signupForm.addEventListener("submit", async function(e) {
+        e.preventDefault();
+        const email = document.getElementById("signupEmail").value;
+        const password = document.getElementById("signupPassword").value;
+
+        try {
+            const res = await fetch(`${BACKEND_URL}/signup`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email, password })
+            });
+
+            const data = await res.json();
+            if (data.error) {
+                alert("Signup failed: " + data.error);
+            } else {
+                alert("Account created. A verification email will be sent via Zoho.");
+            }
+        } catch (err) {
+            alert("Could not reach server. Try again later.");
+        }
+    });
+}
+
+// Login logic
+const loginForm = document.getElementById("loginForm");
+if (loginForm) {
+    loginForm.addEventListener("submit", async function(e) {
+        e.preventDefault();
+        const email = document.getElementById("loginEmail").value;
+        const password = document.getElementById("loginPassword").value;
+
+        try {
+            const res = await fetch(`${BACKEND_URL}/login`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email, password })
+            });
+
+            const data = await res.json();
+            if (data.error) {
+                alert("Login failed: " + data.error);
+            } else if (data.created) {
+                alert("New account created. A verification email will be sent via Zoho.");
+            } else {
+                alert("Login successful. Redirecting to dashboard...");
+                window.location.href = "dashboard.html";
+            }
+        } catch (err) {
+            alert("Could not reach server. Try again later.");
+        }
+    });
+}
+
+// Contact Us form logic
+const contactUsForm = document.getElementById("contactUsForm");
+if (contactUsForm) {
+    contactUsForm.addEventListener("submit", async function(e) {
+        e.preventDefault();
+
+        const name = document.getElementById("cuName").value;
+        const email = document.getElementById("cuEmail").value;
+        const phone = document.getElementById("cuPhone").value;
+        const message = document.getElementById("cuMessage").value;
+
+        try {
+            const res = await fetch(`${BACKEND_URL}/contact`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name, email, phone, message })
+            });
+
+            const data = await res.json();
+            if (data.error) {
+                alert("Error: " + data.error);
+            } else {
+                alert("Message sent successfully. We'll get back to you soon.");
+                contactUsForm.reset();
+            }
+        } catch (err) {
+            alert("Could not reach server. Try again later.");
+        }
+    });
+}
 
 // Chat widget logic
 const chatButton = document.getElementById("evoxa-chat-button");
@@ -30,14 +114,15 @@ const chatInput = document.getElementById("evoxa-chat-input");
 const chatSend = document.getElementById("evoxa-chat-send");
 const typingIndicator = document.getElementById("evoxa-chat-typing");
 
-// Toggle window
-chatButton.onclick = () => {
-    chatWindow.style.display =
-        chatWindow.style.display === "flex" ? "none" : "flex";
-};
+if (chatButton && chatWindow) {
+    chatButton.onclick = () => {
+        chatWindow.style.display =
+            chatWindow.style.display === "flex" ? "none" : "flex";
+    };
+}
 
-// Add message
 function addMessage(text, sender) {
+    if (!chatMessages) return;
     const msg = document.createElement("div");
     msg.className = `message ${sender}`;
     msg.innerText = text;
@@ -45,21 +130,22 @@ function addMessage(text, sender) {
     chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
-// Initial welcome message
-addMessage("Hey, I’m Evoxa’s AI assistant. Ask me anything about our services, pricing, or how we work.", "ai");
+if (chatMessages) {
+    addMessage("Hey, I’m Evoxa’s AI assistant. Ask me anything about our services, pricing, or how we work.", "ai");
+}
 
-// Send message
 async function sendMessage() {
+    if (!chatInput) return;
     const text = chatInput.value.trim();
     if (!text) return;
 
     addMessage(text, "user");
     chatInput.value = "";
 
-    typingIndicator.style.display = "block";
+    if (typingIndicator) typingIndicator.style.display = "block";
 
     try {
-        const res = await fetch("https://YOUR_BACKEND_URL/chat", {
+        const res = await fetch(`${BACKEND_URL}/chat`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -69,15 +155,17 @@ async function sendMessage() {
         });
 
         const data = await res.json();
-        typingIndicator.style.display = "none";
+        if (typingIndicator) typingIndicator.style.display = "none";
         addMessage(data.reply || "Something went wrong, please try again.", "ai");
     } catch (err) {
-        typingIndicator.style.display = "none";
+        if (typingIndicator) typingIndicator.style.display = "none";
         addMessage("I couldn’t reach the server. Please try again later.", "ai");
     }
 }
 
-chatSend.onclick = sendMessage;
-chatInput.addEventListener("keydown", e => {
-    if (e.key === "Enter") sendMessage();
-});
+if (chatSend) chatSend.onclick = sendMessage;
+if (chatInput) {
+    chatInput.addEventListener("keydown", e => {
+        if (e.key === "Enter") sendMessage();
+    });
+}

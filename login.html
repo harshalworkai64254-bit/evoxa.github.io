@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Evoxa — Console Access</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="starfield"></div>
+    <div class="starfield starfield-2"></div>
+
+    <div class="container auth-container fade-in-up">
+        <h2 class="section-title">Access the Evoxa Console</h2>
+
+        <form id="loginForm" class="auth-form">
+            <div class="evoxa-input-group">
+                <label class="evoxa-label">Galactic Email ID</label>
+                <input type="email" id="loginEmail" class="evoxa-input" placeholder="you@yourdomain.com" required>
+            </div>
+
+            <div class="evoxa-input-group">
+                <label class="evoxa-label">Access Key</label>
+                <input type="password" id="loginPassword" class="evoxa-input" placeholder="••••••••••" required>
+            </div>
+
+            <button type="submit" class="evoxa-btn">Initiate Access</button>
+        </form>
+
+        <p style="text-align:center; margin-top:20px;">
+            No access credentials yet?
+            <a href="index.html#account" style="color:#7b5cff;">Create an Evoxa ID</a>
+        </p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
