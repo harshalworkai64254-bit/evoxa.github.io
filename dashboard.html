@@ -2,58 +2,35 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Evoxa — Dashboard</title>
+    <title>Evoxa Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="starfield"></div>
-    <div class="starfield starfield-2"></div>
+<header class="simple-header">
+    <a href="index.html" class="logo-link">← Back to site</a>
+</header>
 
-    <header class="fade-in">
-        <div class="container nav-container">
-            <div class="logo-wrap">
-                <div class="logo-orbit"></div>
-                <h1 class="logo">Evoxa</h1>
-            </div>
-            <nav>
-                <a href="index.html">Back to Site</a>
-                <a href="billing.html" class="cta">Billing</a>
-            </nav>
+<main class="dashboard-container fade-in-up">
+    <h1>Your Evoxa dashboard</h1>
+    <p>This is a simple placeholder. Here you can later show usage, active setups, and billing status.</p>
+
+    <div class="dashboard-cards">
+        <div class="card">
+            <h3>Usage</h3>
+            <p>Track how your chat and voice automations are being used.</p>
         </div>
-    </header>
-
-    <section class="section fade-in-up">
-        <div class="container">
-            <h2 class="section-title">Your Evoxa Dashboard</h2>
-            <p>Placeholder — once backend is wired, this will show real data from your AI tools and website.</p>
-
-            <div class="dashboard-grid">
-                <div class="dash-card">
-                    <h3>Website Analytics</h3>
-                    <p>Page views, visitors, top pages, and more.</p>
-                </div>
-                <div class="dash-card">
-                    <h3>AI Usage</h3>
-                    <p>Messages handled, calls answered, and usage by day.</p>
-                </div>
-                <div class="dash-card">
-                    <h3>Leads & Contacts</h3>
-                    <p>Captured leads, contact details, and follow‑up status.</p>
-                </div>
-                <div class="dash-card">
-                    <h3>Integrations</h3>
-                    <p>Status of ChatBot, LiveChat, Ulio, and other tools.</p>
-                </div>
-                <div class="dash-card">
-                    <h3>Billing</h3>
-                    <p>Subscriptions, invoices, and payment methods.</p>
-                </div>
-                <div class="dash-card">
-                    <h3>Settings</h3>
-                    <p>Business info, preferences, and notification settings.</p>
-                </div>
-            </div>
+        <div class="card">
+            <h3>Active setups</h3>
+            <p>See which tools and flows are currently live.</p>
         </div>
-    </section>
+        <div class="card">
+            <h3>Billing</h3>
+            <p>Manage your plan and invoices.</p>
+        </div>
+    </div>
+</main>
+
+<script src="script.js"></script>
 </body>
 </html>

@@ -1,7 +1,8 @@
-const BACKEND_URL = "https://evoxa.onrender.com";
+// ================== CONFIG ==================
+const BACKEND_URL = "https://YOUR_BACKEND_URL"; // replace with your live backend URL
 
-// Scroll animations
-const animatedElements = document.querySelectorAll('.fade-in, .fade-in-up, .slide-up');
+// ================== SCROLL ANIMATIONS ==================
+const animatedElements = document.querySelectorAll(".fade-in, .fade-in-up, .slide-up");
 
 function revealOnScroll() {
     const trigger = window.innerHeight * 0.85;
@@ -9,22 +10,79 @@ function revealOnScroll() {
     animatedElements.forEach(el => {
         const top = el.getBoundingClientRect().top;
         if (top < trigger) {
-            el.style.animationName = 'fadeInUp';
-            el.style.animationPlayState = 'running';
+            el.style.animationName = "fadeInUp";
+            el.style.animationPlayState = "running";
         }
     });
 }
 
-window.addEventListener('scroll', revealOnScroll);
+window.addEventListener("scroll", revealOnScroll);
 revealOnScroll();
 
-// Signup logic (create Evoxa ID)
+// ================== HELPERS ==================
+function setButtonLoading(button, isLoading) {
+    if (!button) return;
+    if (isLoading) {
+        button.classList.add("loading");
+        button.disabled = true;
+    } else {
+        button.classList.remove("loading");
+        button.disabled = false;
+    }
+}
+
+function showEmailPopup(messageHtml) {
+    const popup = document.getElementById("emailPopup");
+    if (!popup) return;
+
+    const textEl = popup.querySelector(".popup-box p");
+    if (textEl && messageHtml) {
+        textEl.innerHTML = messageHtml;
+    }
+
+    popup.style.display = "flex";
+}
+
+function hideEmailPopup() {
+    const popup = document.getElementById("emailPopup");
+    if (!popup) return;
+    popup.style.display = "none";
+}
+
+// Close popup button (if present)
+const closePopupBtn = document.getElementById("closePopupBtn");
+if (closePopupBtn) {
+    closePopupBtn.addEventListener("click", hideEmailPopup);
+}
+
+// Optional "resend" button (for signup popup etc.)
+const resendEmailBtn = document.getElementById("resendEmailBtn");
+if (resendEmailBtn) {
+    resendEmailBtn.addEventListener("click", () => {
+        hideEmailPopup();
+        alert("If you don’t see the email, please check spam or try signing up again.");
+    });
+}
+
+// ================== SIGNUP LOGIC ==================
 const signupForm = document.getElementById("signupForm");
 if (signupForm) {
-    signupForm.addEventListener("submit", async function(e) {
+    signupForm.addEventListener("submit", async function (e) {
         e.preventDefault();
-        const email = document.getElementById("signupEmail").value;
-        const password = document.getElementById("signupPassword").value;
+
+        const emailInput = document.getElementById("signupEmail");
+        const passwordInput = document.getElementById("signupPassword");
+        const submitBtn = signupForm.querySelector("button[type='submit']");
+
+        const email = emailInput?.value.trim();
+        const password = passwordInput?.value.trim();
+
+        if (!email || !password) {
+            alert("Please enter both email and password.");
+            return;
+        }
+
+        setButtonLoading(submitBtn, true);
 
         try {
             const res = await fetch(`${BACKEND_URL}/signup`, {
@@ -34,24 +92,44 @@ if (signupForm) {
             });
 
             const data = await res.json();
-            if (data.error) {
-                alert("Signup failed: " + data.error);
+            console.log("Signup response:", data);
+
+            if (!res.ok || data.error) {
+                alert("Signup failed: " + (data.error || "Unknown error"));
             } else {
-                alert("Account created. A verification email will be sent via Zoho.");
+                showEmailPopup(
+                    "Your account has been created.<br>" +
+                    "We’ve sent a verification email—please check your inbox and spam folder."
+                );
             }
         } catch (err) {
+            console.error("Signup error:", err);
             alert("Could not reach server. Try again later.");
+        } finally {
+            setButtonLoading(submitBtn, false);
         }
     });
 }
 
-// Login logic
+// ================== LOGIN LOGIC ==================
 const loginForm = document.getElementById("loginForm");
 if (loginForm) {
-    loginForm.addEventListener("submit", async function(e) {
+    loginForm.addEventListener("submit", async function (e) {
         e.preventDefault();
-        const email = document.getElementById("loginEmail").value;
-        const password = document.getElementById("loginPassword").value;
+
+        const emailInput = document.getElementById("loginEmail");
+        const passwordInput = document.getElementById("loginPassword");
+        const submitBtn = loginForm.querySelector("button[type='submit']");
+
+        const email = emailInput?.value.trim();
+        const password = passwordInput?.value.trim();
+
+        if (!email || !password) {
+            alert("Please enter both email and password.");
+            return;
+        }
+
+        setButtonLoading(submitBtn, true);
 
         try {
             const res = await fetch(`${BACKEND_URL}/login`, {
@@ -61,30 +139,46 @@ if (loginForm) {
             });
 
             const data = await res.json();
-            if (data.error) {
-                alert("Login failed: " + data.error);
-            } else if (data.created) {
-                alert("New account created. A verification email will be sent via Zoho.");
+            console.log("Login response:", data);
+
+            if (!res.ok || data.error) {
+                alert("Login failed: " + (data.error || "Unknown error"));
             } else {
                 alert("Login successful. Redirecting to dashboard...");
                 window.location.href = "dashboard.html";
             }
         } catch (err) {
+            console.error("Login error:", err);
             alert("Could not reach server. Try again later.");
+        } finally {
+            setButtonLoading(submitBtn, false);
         }
     });
 }
 
-// Contact Us form logic
+// ================== CONTACT FORM LOGIC ==================
 const contactUsForm = document.getElementById("contactUsForm");
 if (contactUsForm) {
-    contactUsForm.addEventListener("submit", async function(e) {
+    contactUsForm.addEventListener("submit", async function (e) {
         e.preventDefault();
 
-        const name = document.getElementById("cuName").value;
-        const email = document.getElementById("cuEmail").value;
-        const phone = document.getElementById("cuPhone").value;
-        const message = document.getElementById("cuMessage").value;
+        const submitBtn = contactUsForm.querySelector("button[type='submit']");
+        setButtonLoading(submitBtn, true);
+
+        const name = document.getElementById("cuName")?.value.trim();
+        const email = document.getElementById("cuEmail")?.value.trim();
+        const phoneInput = document.getElementById("cuPhone");
+        const message = document.getElementById("cuMessage")?.value.trim();
+
+        // Backend requires phone, but some forms may not have it → send "N/A" if missing
+        let phone = phoneInput ? phoneInput.value.trim() : "";
+        if (!phone) phone = "N/A";
+
+        if (!name || !email || !message) {
+            setButtonLoading(submitBtn, false);
+            alert("Please fill in all required fields.");
+            return;
+        }
 
         try {
             const res = await fetch(`${BACKEND_URL}/contact`, {
@@ -94,30 +188,51 @@ if (contactUsForm) {
             });
 
             const data = await res.json();
-            if (data.error) {
-                alert("Error: " + data.error);
+            console.log("Contact form response:", data);
+
+            if (!res.ok || data.error) {
+                showEmailPopup(
+                    "There was an error sending your message.<br>" +
+                    "Please try again or email <strong>harshaladari@evoxa.co.uk</strong> directly."
+                );
             } else {
-                alert("Message sent successfully. We'll get back to you soon.");
+                showEmailPopup(
+                    "Your message has been sent.<br>" +
+                    "We’ll reply to your inbox soon—check spam just in case."
+                );
                 contactUsForm.reset();
             }
         } catch (err) {
-            alert("Could not reach server. Try again later.");
+            console.error("Contact form error:", err);
+            showEmailPopup(
+                "We couldn’t reach the server.<br>" +
+                "Please try again later or email <strong>harshaladari@evoxa.co.uk</strong>."
+            );
+        } finally {
+            setButtonLoading(submitBtn, false);
         }
     });
 }
 
-// Chat widget logic
+// ================== CHAT WIDGET LOGIC ==================
 const chatButton = document.getElementById("evoxa-chat-button");
 const chatWindow = document.getElementById("evoxa-chat-window");
 const chatMessages = document.getElementById("evoxa-chat-messages");
 const chatInput = document.getElementById("evoxa-chat-input");
 const chatSend = document.getElementById("evoxa-chat-send");
 const typingIndicator = document.getElementById("evoxa-chat-typing");
+const chatClose = document.getElementById("evoxa-chat-close");
 
 if (chatButton && chatWindow) {
     chatButton.onclick = () => {
         chatWindow.style.display =
             chatWindow.style.display === "flex" ? "none" : "flex";
+    };
+}
+
+if (chatClose && chatWindow) {
+    chatClose.onclick = () => {
+        chatWindow.style.display = "none";
     };
 }
 
@@ -131,7 +246,10 @@ function addMessage(text, sender) {
 }
 
 if (chatMessages) {
-    addMessage("Hey, I’m Evoxa’s AI assistant. Ask me anything about our services, pricing, or how we work.", "ai");
+    addMessage(
+        "Hey, I’m Evoxa’s AI assistant. Ask me anything about our websites, AI live chat, or AI voice receptionist.",
+        "ai"
+    );
 }
 
 async function sendMessage() {
@@ -158,6 +276,7 @@ async function sendMessage() {
         if (typingIndicator) typingIndicator.style.display = "none";
         addMessage(data.reply || "Something went wrong, please try again.", "ai");
     } catch (err) {
+        console.error("Chat error:", err);
         if (typingIndicator) typingIndicator.style.display = "none";
         addMessage("I couldn’t reach the server. Please try again later.", "ai");
     }
