@@ -1,34 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
+  <!-- Homepage: Core brand, services, positioning -->
   <url>
     <loc>https://evoxa.co.uk/</loc>
     <priority>1.0</priority>
+    <changefreq>weekly</changefreq>
+    <lastmod>2025-01-31</lastmod>
   </url>
 
+  <!-- Contact: Lead capture + support -->
   <url>
     <loc>https://evoxa.co.uk/contact.html</loc>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
+    <changefreq>monthly</changefreq>
+    <lastmod>2025-01-31</lastmod>
   </url>
 
+  <!-- Login: User portal -->
   <url>
     <loc>https://evoxa.co.uk/login.html</loc>
     <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+    <lastmod>2025-01-31</lastmod>
   </url>
 
+  <!-- Signup: Account creation -->
   <url>
     <loc>https://evoxa.co.uk/signup.html</loc>
-    <priority>0.6</priority>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+    <lastmod>2025-01-31</lastmod>
   </url>
 
+  <!-- Billing: Pricing + plans -->
   <url>
     <loc>https://evoxa.co.uk/billing.html</loc>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+    <lastmod>2025-01-31</lastmod>
   </url>
 
+  <!-- Partnerships: Agency integrations + collaborations -->
   <url>
     <loc>https://evoxa.co.uk/partnerships.html</loc>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+    <lastmod>2025-01-31</lastmod>
   </url>
 
 </urlset>
+
