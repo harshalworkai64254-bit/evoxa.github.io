@@ -1,164 +1,669 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <title>Evoxa – £50 Websites, AI Live Chat & Voice Receptionists</title>
-  <meta name="description" content="Evoxa builds £50 setup, £25/month websites plus AI live chat and AI voice receptionists for small businesses. We implement trusted AI partner tools so you don’t have to.">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evoxa | Automation & AI Services</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        evoxa: {
+                            black: '#050505',
+                            dark: '#0a0a0a',
+                            panel: '#121212',
+                            primary: '#7c3aed',
+                            accent: '#a78bfa',
+                            glow: '#d8b4fe',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                        'hero-glow': 'conic-gradient(from 180deg at 50% 50%, #7c3aed 0deg, #0a0a0a 180deg, #7c3aed 360deg)',
+                    }
+                }
+            }
+        }
+    </script>
 
-  <!-- AIO / SEO structured data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "name": "Evoxa Automation Studio",
-    "description": "Websites, AI live chat, and AI voice receptionist setups for small businesses. £50 setup, £25/month websites.",
-    "url": "https://evoxa.onrender.com",
-    "serviceArea": {
-      "@type": "AdministrativeArea",
-      "name": "United Kingdom"
-    },
-    "offers": [
-      {
-        "@type": "Offer",
-        "name": "Website setup",
-        "price": "50",
-        "priceCurrency": "GBP",
-        "description": "Website setup for small businesses. £50 setup, £25/month hosting and maintenance."
-      }
-    ]
-  }
-  </script>
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #050505;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0a0a0a; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #7c3aed; }
+
+        .glass-panel {
+            background: rgba(18, 18, 18, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .glass-card {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+            border: 1px solid rgba(124, 58, 237, 0.1);
+            transition: all 0.4s ease;
+        }
+
+        .glass-card:hover {
+            border-color: rgba(124, 58, 237, 0.4);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px -10px rgba(124, 58, 237, 0.2);
+        }
+
+        .text-glow {
+            text-shadow: 0 0 20px rgba(124, 58, 237, 0.5);
+        }
+
+        .blob {
+            position: absolute;
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.4;
+            animation: pulse-slow 10s infinite alternate;
+        }
+
+        @keyframes pulse-slow {
+            0% { transform: scale(1); opacity: 0.3; }
+            100% { transform: scale(1.1); opacity: 0.5; }
+        }
+
+        .chat-open {
+            opacity: 1 !important;
+            transform: translateY(0) scale(1) !important;
+            visibility: visible !important;
+        }
+    </style>
 </head>
-<body class="gradient-bg">
-<header class="hero">
-  <div class="hero-inner fade-in-up">
-    <h1>£50 Websites, AI Live Chat & Voice Receptionists</h1>
-    <p>We build your website, plug in AI live chat and AI voice receptionists using trusted partners, and keep everything simple and affordable for small businesses.</p>
-    <div class="hero-actions">
-      <a href="billing.html" class="btn primary">Get a website for £50</a>
-      <a href="contact.html" class="btn secondary">Contact us</a>
-      <a href="partnerships.html" class="btn ghost">Partner with Evoxa</a>
-      <a href="https://calendly.com/harshal-work-ai64254/evoxa-appointment" class="btn outline" target="_blank">Book a meeting</a>
+<body class="antialiased selection:bg-evoxa-primary selection:text-white">
+    <!-- Ambient Background Elements -->
+    <div class="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
+        <div class="blob bg-evoxa-primary w-[500px] h-[500px] rounded-full top-[-10%] left-[-10%] parallax-bg" data-speed="0.2"></div>
+        <div class="blob bg-blue-900 w-[400px] h-[400px] rounded-full bottom-[-10%] right-[-5%] parallax-bg" data-speed="0.1"></div>
+        <div class="blob bg-purple-900 w-[300px] h-[300px] rounded-full top-[40%] right-[20%] parallax-bg" data-speed="0.05" style="opacity: 0.2;"></div>
     </div>
-  </div>
-</header>
 
-<section class="section fade-in-up">
-  <h2>What Evoxa sets up for you</h2>
-  <div class="cards">
-    <div class="card">
-      <h3>Websites</h3>
-      <p>Modern, fast, mobile‑friendly websites built for real small businesses.</p>
-      <p class="price">£50 setup · £25/month</p>
+    <!-- Navigation (from index.html) -->
+    <nav class="fixed w-full z-50 glass-nav transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-2 group">
+                <div class="w-8 h-8 bg-evoxa-primary rounded-lg flex items-center justify-center text-white font-bold group-hover:shadow-[0_0_20px_rgba(124,58,237,0.5)] transition-all">
+                    E
+                </div>
+                <span class="font-heading font-bold text-xl tracking-tight">Evoxa</span>
+            </a>
+
+            <div class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-300">
+                <a href="index.html#services" class="hover:text-white transition-colors">Services</a>
+                <a href="index.html#ai-solutions" class="hover:text-white transition-colors">AI Solutions</a>
+                <a href="pricing.html" class="hover:text-white transition-colors">Pricing</a>
+		<a href="contact.html" class="hover:text-white transition-colors">Contact Us</a>
+                <a href="https://billing.stripe.com/p/login/00w9AU7HmciC8ETfwO6g800" target="_blank" class="text-evoxa-accent hover:text-white transition-colors">Manage Subscription</a>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <a href="contact.html" class="hidden md:block px-5 py-2.5 text-sm font-semibold text-white bg-white/5 border border-white/10 rounded-full hover:bg-white/10 hover:border-evoxa-primary/50 transition-all">
+                    Contact Us
+                </a>
+                <a href="pricing.html" class="px-5 py-2.5 text-sm font-semibold text-black bg-white rounded-full hover:bg-evoxa-glow transition-all shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+                    Get Started
+                </a>
+            </div>
+        </div>
+    </nav>
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <div 
+                class="absolute inset-0 parallax-scroll 
+                bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTTAgNDBMMCAwTDQwIDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0icmdiYSgyNTUsMjU1LDI1NSwwLjAzKSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIiAvPjwvc3ZnPg==')] 
+                mask-image-[linear-gradient(to_bottom,transparent,black,transparent)]"
+                data-speed="0.02">
+	    </div>
+
+        </div>
+
+        <div class="relative z-10 max-w-5xl mx-auto px-6 text-center">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-evoxa-primary/30 bg-evoxa-primary/10 mb-8 hero-anim opacity-0 translate-y-4">
+                <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+                <span class="text-xs font-medium text-evoxa-accent tracking-wider uppercase">Now Accepting New Clients</span>
+            </div>
+
+            <h1 class="font-display text-5xl md:text-7xl lg:text-8xl font-bold leading-tight mb-6 hero-anim opacity-0 translate-y-4">
+                Automate the <span class="text-transparent bg-clip-text bg-gradient-to-r from-gray-400 to-white">Ordinary.</span><br>
+                Elevate the <span class="text-transparent bg-clip-text bg-gradient-to-r from-evoxa-primary to-purple-400 text-glow">Extraordinary.</span>
+            </h1>
+
+            <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-10 hero-anim opacity-0 translate-y-4 font-light">
+                Evoxa builds premium automation infrastructure for modern businesses. From high-end websites to AI receptionists, we deploy the technology that powers your growth.
+            </p>
+
+            <div class="flex flex-col md:flex-row items-center justify-center gap-4 hero-anim opacity-0 translate-y-4">
+                <a href="pricing.html" class="px-8 py-4 bg-white text-black font-bold rounded-full hover:bg-gray-200 transition-all transform hover:scale-105 shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+                    View Pricing
+                </a>
+                <a href="#ai-solutions" class="px-8 py-4 glass-panel border border-white/20 text-white font-medium rounded-full hover:bg-white/10 transition-all flex items-center gap-2">
+                    Explore AI Solutions <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <i data-lucide="chevrons-down" class="text-gray-500 w-6 h-6"></i>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-24 relative z-10">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="mb-16 text-center parallax-scroll" data-speed="0.05">
+                <h2 class="font-display text-3xl md:text-4xl font-bold mb-4">Core Infrastructure</h2>
+                <p class="text-gray-400 max-w-xl mx-auto">The foundation of your digital presence, built for speed, security, and conversion.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="glass-card p-8 rounded-2xl relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity parallax-scroll" data-speed="-0.05">
+                        <i data-lucide="layout" class="w-24 h-24 text-evoxa-primary"></i>
+                    </div>
+                    <div class="w-12 h-12 bg-evoxa-panel border border-evoxa-primary/30 rounded-lg flex items-center justify-center mb-6 text-evoxa-primary">
+                        <i data-lucide="monitor" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-display text-xl font-bold mb-3 text-white">Website Setup</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                        Premium, high-performance websites built using advanced AI frameworks. We handle design, deployment, and optimization in a single seamless package.
+                    </p>
+                    <ul class="space-y-2 mb-6">
+                        <li class="flex items-center gap-2 text-xs text-gray-300">
+                            <i data-lucide="check-circle" class="w-4 h-4 text-green-400"></i> Gemini-Powered Code
+                        </li>
+                        <li class="flex items-center gap-2 text-xs text-gray-300">
+                            <i data-lucide="check-circle" class="w-4 h-4 text-green-400"></i> Mobile Responsive
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="glass-card p-8 rounded-2xl relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity parallax-scroll" data-speed="-0.05">
+                        <i data-lucide="server" class="w-24 h-24 text-blue-500"></i>
+                    </div>
+                    <div class="w-12 h-12 bg-evoxa-panel border border-blue-500/30 rounded-lg flex items-center justify-center mb-6 text-blue-400">
+                        <i data-lucide="cloud-lightning" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-display text-xl font-bold mb-3 text-white">Managed Hosting</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                        Forget downtime. Our managed hosting ensures your site is fast, secure, and always online. We handle updates and technical maintenance.
+                    </p>
+                    <ul class="space-y-2 mb-6">
+                        <li class="flex items-center gap-2 text-xs text-gray-300">
+                            <i data-lucide="check-circle" class="w-4 h-4 text-blue-400"></i> 99.9% Uptime
+                        </li>
+                        <li class="flex items-center gap-2 text-xs text-gray-300">
+                            <i data-lucide="check-circle" class="w-4 h-4 text-blue-400"></i> SSL Security Included
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="glass-card p-8 rounded-2xl relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity parallax-scroll" data-speed="-0.05">
+                        <i data-lucide="at-sign" class="w-24 h-24 text-pink-500"></i>
+                    </div>
+                    <div class="w-12 h-12 bg-evoxa-panel border border-pink-500/30 rounded-lg flex items-center justify-center mb-6 text-pink-400">
+                        <i data-lucide="mail" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-display text-xl font-bold mb-3 text-white">Professional Email</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                        Build trust with a custom domain email address. Secure, spam-filtered, and perfectly integrated with your business workflow.
+                    </p>
+                    <div class="inline-block px-3 py-1 bg-pink-500/10 border border-pink-500/20 rounded-full text-xs text-pink-300">
+                        £15 / user / month
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- AI Solutions Section -->
+    <section id="ai-solutions" class="py-24 relative bg-evoxa-dark border-y border-white/5">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center gap-16 mb-24 section-trigger">
+                <div class="w-full md:w-1/2 parallax-scroll" data-speed="0.1">
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-evoxa-primary blur-[60px] opacity-20"></div>
+                        <div class="glass-panel p-2 rounded-xl border border-white/10 relative">
+                            <div class="bg-evoxa-black rounded-lg p-6 space-y-4">
+                                <div class="flex gap-3">
+                                    <div class="w-8 h-8 rounded-full bg-gray-700"></div>
+                                    <div class="bg-gray-800 p-3 rounded-lg rounded-tl-none text-xs text-gray-400 w-3/4">
+                                        How can I schedule an appointment with Evoxa?
+                                    </div>
+                                </div>
+                                <div class="flex gap-3 flex-row-reverse">
+                                    <div class="w-8 h-8 rounded-full bg-evoxa-primary flex items-center justify-center text-[10px] font-bold">AI</div>
+                                    <div class="bg-evoxa-primary/20 p-3 rounded-lg rounded-tr-none text-xs text-gray-200 w-3/4 border border-evoxa-primary/30">
+                                        I can help with that instantly. Checking calendar availability now...
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-full md:w-1/2">
+                    <div class="flex items-center gap-2 text-evoxa-primary font-bold tracking-wider text-sm mb-2 uppercase">
+                        <i data-lucide="bot" class="w-4 h-4"></i> Automated Support
+                    </div>
+                    <h3 class="font-display text-3xl md:text-4xl font-bold mb-4">24/7 AI Chatbot Integration</h3>
+                    <p class="text-gray-400 leading-relaxed mb-6">
+                        Stop losing leads to slow response times. We deploy intelligent, human-like AI chatbots that live on your website. These bots understand context, answer FAQs, and book appointments while you sleep—fully managed and optimized for conversion.
+                    </p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center gap-3 text-gray-300">
+                            <i data-lucide="zap" class="w-5 h-5 text-yellow-400"></i> Instant Responses
+                        </li>
+                        <li class="flex items-center gap-3 text-gray-300">
+                            <i data-lucide="lock" class="w-5 h-5 text-evoxa-primary"></i> Seamless Integration
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Voice AI Section -->
+            <div class="flex flex-col md:flex-row-reverse items-center gap-16 section-trigger">
+                <div class="w-full md:w-1/2 parallax-scroll" data-speed="0.1">
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-blue-600 blur-[60px] opacity-20"></div>
+                        <div class="glass-panel p-8 rounded-xl border border-white/10 relative flex items-center justify-center h-64">
+                            <div class="flex items-end gap-1 h-12">
+                                <div class="w-2 bg-blue-500 rounded-full animate-[bounce_1s_infinite]"></div>
+                                <div class="w-2 bg-blue-400 rounded-full animate-[bounce_1.2s_infinite]"></div>
+                                <div class="w-2 bg-purple-500 rounded-full animate-[bounce_0.8s_infinite]"></div>
+                                <div class="w-2 bg-blue-500 rounded-full animate-[bounce_1.1s_infinite]"></div>
+                                <div class="w-2 bg-blue-400 rounded-full animate-[bounce_0.9s_infinite]"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-full md:w-1/2">
+                    <div class="flex items-center gap-2 text-blue-400 font-bold tracking-wider text-sm mb-2 uppercase">
+                        <i data-lucide="mic" class="w-4 h-4"></i> Voice Intelligence
+                    </div>
+                    <h3 class="font-display text-3xl md:text-4xl font-bold mb-4">AI Voice Receptionist</h3>
+                    <p class="text-gray-400 leading-relaxed mb-6">
+                        Never miss a call again. Our partner-delivered AI voice solutions can handle inbound calls, route inquiries, and capture lead details with human-like intonation.
+                    </p>
+                    <a href="#contact" class="text-white border-b border-evoxa-primary hover:text-evoxa-primary transition-colors pb-1">
+                        Listen to a demo audio sample
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-24 relative z-10">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 parallax-scroll" data-speed="0.05">
+                <h2 class="font-display text-4xl font-bold mb-4">Simple, Transparent Pricing</h2>
+                <p class="text-gray-400">Everything you need to launch and scale.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start max-w-4xl mx-auto">
+                
+                <!-- Core Package -->
+                <div class="glass-card p-8 rounded-2xl border-evoxa-primary/50 relative bg-evoxa-primary/5 transform md:-translate-y-4">
+                    <div class="absolute top-0 right-0 bg-evoxa-primary text-white text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-lg">
+                        BEST VALUE
+                    </div>
+                    <div class="mb-4">
+                        <span class="text-xs font-bold tracking-widest text-evoxa-primary uppercase">Core Package</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-2">Complete Digital Presence</h3>
+                    
+                    <div class="flex flex-col mb-6 gap-1">
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-4xl font-bold text-white">£50</span>
+                            <span class="text-gray-400 text-sm font-medium">setup fee</span>
+                        </div>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-2xl font-bold text-evoxa-accent">+ £25</span>
+                            <span class="text-gray-400 text-sm font-medium">/month hosting & care</span>
+                        </div>
+                    </div>
+
+                    <p class="text-gray-400 text-sm mb-8 min-h-[60px]">
+                        We build, host, and maintain your website so you can focus on your business. Includes everything to get started.
+                    </p>
+                    <button class="w-full py-3 bg-evoxa-primary hover:bg-evoxa-primary/90 text-white rounded-lg transition-all font-semibold shadow-lg shadow-evoxa-primary/20 mb-6">
+                        <a href="https://buy.stripe.com/00w9AU7HmciC8ETfwO6g800">Get Started</a>
+                    </button>
+                    <ul class="space-y-3 text-sm text-gray-300">
+                        <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-white"></i> <strong>Free Custom Domain Included</strong></li>
+                        <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-white"></i> Complete Website Build</li>
+                        <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-white"></i> Mobile Optimized Design</li>
+                        <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-white"></i> Weekly Backups & Security</li>
+                        <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-white"></i> Priority Support</li>
+                    </ul>
+                </div>
+
+                <!-- Email Add-on -->
+                <div class="glass-card p-8 rounded-2xl border-white/5">
+                    <div class="mb-4">
+                        <span class="text-xs font-bold tracking-widest text-gray-500 uppercase">Add-on</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-2">Pro Email</h3>
+                    <div class="flex items-baseline gap-1 mb-6">
+                        <span class="text-4xl font-bold text-white">£15</span>
+                        <span class="text-gray-500 text-sm">/user/mo</span>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-8 min-h-[60px]">
+                        Professional business email suite with calendar integration. Requires Core Package.
+                    </p>
+                    <button class="w-full py-3 border border-white/20 hover:bg-white hover:text-black rounded-lg transition-all font-semibold mb-6">
+                        <a href="https://buy.stripe.com/5kQeVed1GciC3kz0BU6g801">Add to Plan</a>
+                    </button>
+                    <ul class="space-y-3 text-sm text-gray-300">
+                        <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-evoxa-primary"></i> 30GB Storage</li>
+                        <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-evoxa-primary"></i> Calendar Integration</li>
+                        <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-evoxa-primary"></i> Spam Protection</li>
+                        <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-gray-500"></i> <span class="text-gray-500 line-through">Domain not included</span></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="mt-12 text-center">
+                <p class="text-gray-500 text-sm">Looking for custom AI Voice or Chatbot solutions?</p>
+                <a href="#" class="text-evoxa-accent hover:text-white underline text-sm mt-1 inline-block">Contact sales for partner integration quotes</a>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer class="border-t border-white/10 bg-black pt-16 pb-8 relative overflow-hidden">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[1px] bg-gradient-to-r from-transparent via-evoxa-primary to-transparent opacity-50"></div>
+        
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between gap-12 mb-12">
+                <div class="md:w-1/3">
+                    <a href="index.html" class="flex items-center gap-2 mb-6">
+                        <div class="w-8 h-8 bg-evoxa-panel border border-white/10 rounded-lg flex items-center justify-center text-white font-bold">E</div>
+                        <span class="font-heading font-bold text-xl">Evoxa</span>
+                    </a>
+                    <p class="text-gray-400 max-w-sm mb-6">
+                        We build the digital infrastructure that powers modern businesses. Websites, Automation, and AI solutions.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="404.html" class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:border-evoxa-primary/50 transition-all">
+                            <i data-lucide="twitter" class="w-4 h-4"></i>
+                        </a>
+                        <a href="404.html" class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:border-evoxa-primary/50 transition-all">
+                            <i data-lucide="linkedin" class="w-4 h-4"></i>
+                        </a>
+                        <a href="404.html" class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:border-evoxa-primary/50 transition-all">
+                            <i data-lucide="instagram" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/3 flex flex-col md:items-end">
+                    <h4 class="font-bold text-white mb-6">Company Links</h4>
+                    <ul class="space-y-4 text-sm text-gray-400 md:text-right">
+                        <li><a href="index.html" class="hover:text-evoxa-accent transition-colors">Home</a></li>
+                        <li><a href="pricing.html" class="hover:text-evoxa-accent transition-colors">Pricing</a></li>
+                        <li><a href="ps.html" class="hover:text-evoxa-accent transition-colors">Privacy Policy</a></li>
+                        <li><a href="tc.html" class="text-evoxa-primary font-medium">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-sm text-gray-500">© 2020 Apollo Services PVT Limited. All rights reserved.</p>
+                <p class="text-sm text-gray-600">Designed for the future.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Chatbot Widget -->
+    <div id="chatbot-widget" class="fixed bottom-6 right-6 z-50 flex flex-col items-end pointer-events-none">
+
+        <!-- Chat Window -->
+        <div id="chat-window" class="pointer-events-auto w-[90vw] md:w-96 h-[450px] bg-evoxa-panel/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl flex flex-col overflow-hidden mb-4 opacity-0 translate-y-4 transition-all duration-300 origin-bottom-right transform scale-95 invisible">
+
+            <!-- Header -->
+            <div class="bg-evoxa-primary p-4 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="relative">
+                        <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse absolute top-0 right-0 border border-evoxa-primary"></div>
+                        <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-white text-xs font-bold">AI</div>
+                    </div>
+                    <div>
+                        <span class="font-bold text-white text-sm block">Evoxa Assistant</span>
+                        <span class="text-xs text-white/70 block">Online</span>
+                    </div>
+                </div>
+                <button id="close-chat" class="text-white/80 hover:text-white transition-colors">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <!-- Messages -->
+            <div id="chat-messages" class="flex-1 p-4 overflow-y-auto space-y-4 bg-black/40">
+                <div class="text-center text-xs text-gray-500 my-2">Today</div>
+
+                <div class="flex gap-2">
+                    <div class="w-8 h-8 rounded-full bg-evoxa-primary flex items-center justify-center text-[10px] text-white font-bold">AI</div>
+                    <div class="bg-white/10 p-3 rounded-lg rounded-tl-none text-sm text-gray-200 border border-white/5">
+                        Hello! Welcome to Evoxa. How can I help you automate your business today?
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input -->
+            <div class="p-3 border-t border-white/10 bg-black/20">
+                <div class="flex gap-2">
+                    <input id="chat-input" type="text" placeholder="Type a message..." class="w-full bg-white/5 border border-white/10 rounded-full px-4 py-2 text-sm text-white focus:outline-none focus:border-evoxa-primary/50 transition-colors placeholder-gray-500">
+                    <button id="chat-send" class="bg-evoxa-primary p-2 rounded-full text-white hover:bg-evoxa-primary/80 transition-colors flex-shrink-0 w-10 h-10 flex items-center justify-center">
+                        <i data-lucide="send" class="w-4 h-4 ml-0.5"></i>
+                    </button>
+                </div>
+                <div class="text-[10px] text-gray-600 text-center mt-2">
+                    Powered by OpenAI & Evoxa Automation
+                </div>
+            </div>
+        </div>
+
+        <!-- Toggle Button -->
+        <button id="chat-toggle" class="pointer-events-auto w-16 h-16 bg-evoxa-primary hover:bg-evoxa-primary/90 rounded-full flex items-center justify-center text-white shadow-[0_0_30px_rgba(124,58,237,0.4)] transition-all hover:scale-105 group border border-white/10">
+            <i data-lucide="message-square" class="w-7 h-7 group-hover:scale-0 transition-all absolute"></i>
+            <i data-lucide="chevron-down" class="w-8 h-8 scale-0 group-hover:scale-100 transition-all absolute"></i>
+        </button>
     </div>
-    <div class="card">
-      <h3>AI live chat</h3>
-      <p>AI chat assistants configured using partner tools, tuned to your FAQs and processes.</p>
-      <p class="note">Pricing on call</p>
-    </div>
-    <div class="card">
-      <h3>AI voice receptionist</h3>
-      <p>Phone receptionist flows for bookings, FAQs, and routing—implemented via trusted AI partners.</p>
-      <p class="note">Pricing on call</p>
-    </div>
-  </div>
-</section>
 
-<section class="section fade-in-up">
-  <h2>How Evoxa compares</h2>
-  <p>We’re cheaper than typical agencies and easier than DIY AI tools—while still doing the setup for you.</p>
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
-  <div class="table-wrapper">
-    <table class="compare-table">
-      <thead>
-        <tr>
-          <th>Feature</th>
-          <th>Evoxa</th>
-          <th>Typical web agency</th>
-          <th>DIY AI tools</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Website pricing</td>
-          <td>£50 setup, £25/month</td>
-          <td>£500–£3,000+ upfront, retainers</td>
-          <td>No website, just tools</td>
-        </tr>
-        <tr>
-          <td>AI live chat</td>
-          <td>We implement partner tools for you</td>
-          <td>Often not offered or bolted on</td>
-          <td>You configure everything yourself</td>
-        </tr>
-        <tr>
-          <td>AI voice receptionist</td>
-          <td>We design flows and set up partners</td>
-          <td>Rarely offered</td>
-          <td>DIY, no guidance</td>
-        </tr>
-        <tr>
-          <td>Ongoing changes</td>
-          <td>We adjust as your business changes</td>
-          <td>Slow and expensive</td>
-          <td>You do it all manually</td>
-        </tr>
-        <tr>
-          <td>Who does the work?</td>
-          <td>Evoxa implements, partners power the AI</td>
-          <td>In‑house devs, high cost</td>
-          <td>Just software, no implementation</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+    <script>
+        lucide.createIcons();
+        gsap.registerPlugin(ScrollTrigger);
 
-  <div class="cta-row">
-    <a href="https://calendly.com/harshal-work-ai64254/evoxa-appointment" target="_blank" class="btn primary">Book a meeting</a>
-    <a href="contact.html" class="btn secondary">Contact us</a>
-  </div>
-</section>
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navbar = document.getElementById('navbar');
 
-<footer class="footer slide-up">
-  <p>© Evoxa Automation Studio</p>
-  <div class="footer-links">
-    <a href="login.html">Login</a>
-    <a href="signup.html">Create ID</a>
-    <a href="contact.html">Contact</a>
-    <a href="billing.html">Billing</a>
-    <a href="partnerships.html">Partnerships</a>
-  </div>
-</footer>
+        if (mobileMenuBtn && mobileMenu) 
+	{ mobileMenuBtn.addEventListener('click', () => {
+	     mobileMenu.classList.toggle('hidden'); 
+	}); }
 
-<!-- Chat widget -->
-<div id="evoxa-chat-button">Chat with Evoxa</div>
-<div id="evoxa-chat-window">
-  <div class="evoxa-chat-header">
-    <span>Evoxa Assistant</span>
-    <button id="evoxa-chat-close" class="chat-close">×</button>
-  </div>
-  <div id="evoxa-chat-messages" class="evoxa-chat-messages"></div>
-  <div id="evoxa-chat-typing">Evoxa is typing…</div>
-  <div class="evoxa-chat-input-row">
-    <input id="evoxa-chat-input" type="text" placeholder="Ask about websites, AI chat, or voice">
-    <button id="evoxa-chat-send">Send</button>
-  </div>
-</div>
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-black/80', 'backdrop-blur-xl');
+            } else {
+                navbar.classList.remove('bg-black/80', 'backdrop-blur-xl');
+            }
+        });
 
-<!-- Email popup -->
-<div id="emailPopup" class="popup-overlay">
-  <div class="popup-box">
-    <h2>Email sent</h2>
-    <p>We’ve sent a message to your inbox.<br>Check spam or junk just in case.</p>
-    <div class="popup-buttons">
-      <button id="resendEmailBtn">Resend email</button>
-      <button id="closePopupBtn">Close</button>
-    </div>
-  </div>
-</div>
+        const chatToggle = document.getElementById('chat-toggle');
+        const chatWindow = document.getElementById('chat-window');
+        const closeChat = document.getElementById('close-chat');
+        const chatInput = document.getElementById('chat-input');
+        const chatSend = document.getElementById('chat-send');
+        const chatMessages = document.getElementById('chat-messages');
 
-<script src="script.js"></script>
+        function toggleChat() {
+            chatWindow.classList.toggle('chat-open');
+            chatWindow.classList.toggle('invisible');
+        }
+
+        if (chatToggle && chatWindow && closeChat) {
+            chatToggle.addEventListener('click', toggleChat);
+            closeChat.addEventListener('click', toggleChat);
+        }
+
+
+        async function sendChatMessage() {
+            const text = chatInput.value.trim();
+            if (!text) return;
+
+            chatMessages.insertAdjacentHTML('beforeend', `
+                <div class="flex gap-2 flex-row-reverse">
+                    <div class="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center text-[10px] text-white font-bold">You</div>
+                    <div class="bg-white/10 p-3 rounded-lg rounded-tr-none text-sm text-gray-200 border border-white/5 max-w-[80%]">${text}</div>
+                </div>
+            `);
+
+            chatInput.value = '';
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            try {
+                const res = await fetch('https://evoxa.onrender.com/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: text })
+                });
+
+                const data = await res.json();
+                const reply = data.reply || 'Sorry, something went wrong.';
+
+                chatMessages.insertAdjacentHTML('beforeend', `
+                    <div class="flex gap-2">
+                        <div class="w-8 h-8 rounded-full bg-evoxa-primary flex items-center justify-center text-[10px] text-white font-bold">AI</div>
+                        <div class="bg-white/10 p-3 rounded-lg rounded-tl-none text-sm text-gray-200 border border-white/5 max-w-[80%]">${reply}</div>
+                    </div>
+                `);
+
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            } catch (err) {
+                chatMessages.insertAdjacentHTML('beforeend', `
+                    <div class="flex gap-2">
+                        <div class="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center text-[10px] text-white font-bold">!</div>
+                        <div class="bg-red-600/20 p-3 rounded-lg rounded-tl-none text-sm text-red-200 border border-red-600/40 max-w-[80%]">
+                            I couldn't reach the server. Please try again later.
+                        </div>
+                    </div>
+                `);
+            }
+        }
+
+        chatSend.addEventListener('click', sendChatMessage);
+        chatInput.addEventListener('keydown', e => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                sendChatMessage();
+            }
+        });
+
+        const heroTl = gsap.timeline({ defaults: { ease: "power3.out" } });
+        heroTl.to(".hero-anim", {
+            y: 0,
+            opacity: 1,
+            duration: 1,
+            stagger: 0.2
+        });
+
+        gsap.utils.toArray(".parallax-bg").forEach(layer => {
+            const speed = layer.getAttribute("data-speed");
+            gsap.to(layer, {
+                y: -(window.innerHeight * speed * 2),
+                ease: "none",
+                scrollTrigger: {
+                    trigger: "body",
+                    start: "top top",
+                    end: "bottom top",
+                    scrub: true
+                }
+            });
+        });
+
+        gsap.utils.toArray(".parallax-scroll").forEach(el => {
+            const speed = parseFloat(el.getAttribute("data-speed")) || 0.05;
+            gsap.to(el, {
+                y: -(window.innerHeight * speed),
+                ease: "none",
+                scrollTrigger: {
+                    trigger: el,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: true
+                }
+            });
+        });
+
+        gsap.utils.toArray("#services .glass-card").forEach((card, i) => {
+            gsap.from(card, {
+                scrollTrigger: {
+                    trigger: card,
+                    start: "top 85%",
+                    toggleActions: "play none none reverse"
+                },
+                y: 50,
+                opacity: 0,
+                duration: 0.8,
+                delay: i * 0.1
+            });
+        });
+
+        gsap.utils.toArray(".section-trigger").forEach(section => {
+            gsap.from(section, {
+                scrollTrigger: {
+                    trigger: section,
+                    start: "top 80%",
+                    toggleActions: "play none none reverse"
+                },
+                y: 30,
+                opacity: 0,
+                duration: 0.8
+            });
+        });
+    </script>
+
 </body>
 </html>
