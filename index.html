@@ -266,7 +266,7 @@
                                 <div class="flex gap-3 flex-row-reverse">
                                     <div class="w-8 h-8 rounded-full bg-evoxa-primary flex items-center justify-center text-[10px] font-bold">AI</div>
                                     <div class="bg-evoxa-primary/20 p-3 rounded-lg rounded-tr-none text-xs text-gray-200 w-3/4 border border-evoxa-primary/30">
-                                        I can help with that instantly. Checking calendar availability now...
+                                        I can help with that instantly. You can book an appointment at...
                                     </div>
                                 </div>
                             </div>
@@ -318,9 +318,19 @@
                     <p class="text-gray-400 leading-relaxed mb-6">
                         Never miss a call again. Our partner-delivered AI voice solutions can handle inbound calls, route inquiries, and capture lead details with human-like intonation.
                     </p>
-                    <a href="#contact" class="text-white border-b border-evoxa-primary hover:text-evoxa-primary transition-colors pb-1">
-                        Listen to a demo audio sample
-                    </a>
+                    <a href="#" id="play-audio" class="text-evoxa-primary hover:text-evoxa-accent">
+    			Listen to a demo audio sample
+		    </a>
+
+		    <audio id="my-audio" src="download.wav"></audio>
+		    <script>
+			document.getElementById("play-audio").addEventListener("click", function(e) {
+    			e.preventDefault(); // stops the link from navigating
+    			document.getElementById("my-audio").play();
+		        });
+		    </script>
+
+
                 </div>
             </div>
         </div>
