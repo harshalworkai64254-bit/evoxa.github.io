@@ -181,6 +181,15 @@
 		<a href="contact.html" class="hover:text-white transition-colors">Contact Us</a>
                 <a href="https://billing.stripe.com/p/login/00w9AU7HmciC8ETfwO6g800" target="_blank" class="text-evoxa-accent hover:text-white transition-colors">Manage Subscription</a>
             </div>
+	    <!-- Currency Selector -->
+	    <div class="hidden md:block">
+    		<select id="currency-selector" class="bg-white/5 border border-white/10 text-gray-300 text-sm rounded-lg px-3 py-2 cursor-pointer hover:border-evoxa-primary/50 transition-all">
+        	    <option value="GBP" selected>United Kingdom (GBP)</option>
+       		    <option value="INR">India (INR)</option>
+        	    <!-- Add more currencies later -->
+    	        </select>
+	    </div>
+
 
             <div class="flex items-center gap-4">
                 <a href="contact.html" class="hidden md:block px-5 py-2.5 text-sm font-semibold text-white bg-white/5 border border-white/10 rounded-full hover:bg-white/10 hover:border-evoxa-primary/50 transition-all">
@@ -247,10 +256,10 @@
 
                     <div class="mb-8 price-text">
                         <div class="flex items-baseline gap-2">
-                            <span class="text-4xl font-bold tracking-tight">£50</span>
+                            <span id="core-setup-price" class="text-4xl font-bold tracking-tight">£50</span>
                             <span class="text-sm font-medium uppercase tracking-wider">Setup</span>
                         </div>
-                        <div class="text-evoxa-accent font-semibold mt-1">+ £25/mo hosting</div>
+                        <div id="core-hosting-price" class="text-evoxa-accent font-semibold mt-1">+ £25/mo hosting</div>
                     </div>
 
                     <ul class="space-y-4 text-sm mb-8 flex-1">
@@ -258,9 +267,11 @@
                         <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 text-evoxa-primary"></i> Managed Cloud Hosting</li>
                         <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 text-evoxa-primary"></i> Enterprise SSL Security</li>
                     </ul>
-                    <button class="w-full py-4 bg-white text-black font-bold rounded-2xl hover:bg-evoxa-glow transition-all shadow-lg">
-                        <a href="https://buy.stripe.com/00w9AU7HmciC8ETfwO6g800">Choose Plan</a>
-                    </button>
+		    <a id="choose-plan-link" href="https://buy.stripe.com/00w9AU7HmciC8ETfwO6g800" target="_blank" class="block">
+                        <button class="w-full py-4 bg-white text-black font-bold rounded-2xl hover:bg-evoxa-glow transition-all shadow-lg">
+                            Choose Plan
+                        </button>
+		    </a>
 		    
                 </div>
 
@@ -276,7 +287,7 @@
 
                     <div class="mb-8 price-text">
                         <div class="flex items-baseline gap-2">
-                            <span class="text-4xl font-bold tracking-tight">£15</span>
+                            <span id="email-user-price" class="text-4xl font-bold tracking-tight">£15</span>
                             <span class="text-sm font-medium uppercase tracking-wider">/user</span>
                         </div>
                         <div class="text-pink-400 font-semibold mt-1">Requires Core Plan</div>
@@ -284,13 +295,14 @@
 
                     <ul class="space-y-4 text-sm mb-8 flex-1">
                         <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 text-pink-500"></i> Custom Domain Email</li>
-                        <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 text-pink-500"></i> 50GB Secure Storage</li>
-                        <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 text-pink-500"></i> Integrated Team Calendars</li>
+                        <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 text-pink-500"></i> 30GB Secure Storage</li>
+                        <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 text-pink-500"></i> AI Assistant in Gmail</li>
                     </ul>
-
-                    <button class="w-full py-4 border border-pink-500/50 text-pink-400 font-bold rounded-2xl hover:bg-pink-500 hover:text-white transition-all">
-                        <a href="https://buy.stripe.com/5kQeVed1GciC3kz0BU6g801">Add Email</a>
-                    </button>
+		    <a id="add-email-link" href="https://buy.stripe.com/5kQeVed1GciC3kz0BU6g801" target="_blank" class="block">
+                        <button class="w-full py-4 border border-pink-500/50 text-pink-400 font-bold rounded-2xl hover:bg-pink-500 hover:text-white transition-all">
+                            Add Email
+                        </button>
+		    </a>
                 </div>
 
                 <!-- AI PACKAGE -->
@@ -608,6 +620,82 @@
             delay: 0.3,
             ease: "power2.out"
         });
+        /* -------------------------
+  	 CURRENCY SWITCHING LOGIC
+	------------------------- */
+	const currencySelector = document.getElementById("currency-selector");
+
+	// Replace these with your real Stripe links
+	const LINKS = {
+	    GBP: {
+	        addEmail: "https://buy.stripe.com/5kQeVed1GciC3kz0BU6g801",
+	        choosePlan: "https://buy.stripe.com/00w9AU7HmciC8ETfwO6g800"
+	    },
+	    INR: {
+	        addEmail: "https://buy.stripe.com/4gMdRad1G1DY9IX4Sa6g802",
+	        choosePlan: "https://buy.stripe.com/eVq3cw8LqgySaN1fwO6g803"
+	    }
+	};
+
+	function updateLinks(currency) {
+	    const addEmailBtn = document.getElementById("add-email-link");
+	    const choosePlanBtn = document.getElementById("choose-plan-link");
+
+	    if (addEmailBtn) addEmailBtn.href = LINKS[currency].addEmail;
+	    if (choosePlanBtn) choosePlanBtn.href = LINKS[currency].choosePlan;
+	}
+	/* -------------------------
+ 	  PRICE SWITCHING LOGIC
+	------------------------- */
+	const PRICES = {
+	    GBP: {
+	        coreSetup: "£50",
+	        coreHosting: "+ £25/mo hosting",
+	        emailUser: "£15"
+	    },
+	    INR: {
+	        coreSetup: "₹10000",
+	        coreHosting: "+ ₹6250/mo hosting",
+	        emailUser: "₹2000"
+	    }
+	};
+
+	function updatePrices(currency) {
+	    document.getElementById("core-setup-price").textContent = PRICES[currency].coreSetup;
+	    document.getElementById("core-hosting-price").textContent = PRICES[currency].coreHosting;
+	    document.getElementById("email-user-price").textContent = PRICES[currency].emailUser;
+	}
+	updateLinks("GBP");
+	updatePrices("GBP");
+
+
+	// When dropdown changes
+	if (currencySelector) {
+	    currencySelector.addEventListener("change", (e) => {
+    		const currency = e.target.value;
+    		updateLinks(currency);
+    		updatePrices(currency);
+	});
+
+   	};
+	
+	
+	/* -------------------------
+	   AUTO-DETECT COUNTRY
+	------------------------- */
+	fetch("https://ipapi.co/json/")
+    	    .then(res => res.json())
+    	    .then(data => {
+            if (data.country === "IN") {
+                currencySelector.value = "INR";
+                updateLinks("INR");
+                updatePrices("INR");
+            }
+        })
+        .catch(() => {
+            // If API fails, default stays GBP
+        });
+
     </script>
 
 </body>
