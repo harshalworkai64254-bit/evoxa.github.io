@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HC Turkish Barbers | Premium Grooming</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            400: '#D4AF37',
+                            500: '#C5A028',
+                            600: '#B49020',
+                        },
+                        dark: {
+                            900: '#0F0F0F',
+                            800: '#1A1A1A',
+                            700: '#252525',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Manrope"', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'barber-pattern': "url('https://images.unsplash.com/photo-1503951914875-befbb7470d03?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80')",
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #0F0F0F;
+            color: #f3f4f6;
+            overflow-x: hidden;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #444;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #D4AF37;
+        }
+
+        .text-gold-gradient {
+            background: linear-gradient(to right, #D4AF37, #F2D06B, #D4AF37);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: shine 4s linear infinite;
+        }
+
+        @keyframes shine {
+            to {
+                background-position: 200% center;
+            }
+        }
+
+        .service-card {
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            background-color: #252525;
+        }
+
+        /* Loader */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .clip-path-slant {
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Loading Screen -->
+    <div class="loader">
+        <div class="text-center">
+            <h1 class="text-4xl md:text-6xl font-serif text-gold-400 tracking-widest opacity-0" id="loader-text">HC TURKISH BARBERS</h1>
+            <div class="h-0.5 bg-gold-400 mt-4 w-0 mx-auto" id="loader-line"></div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 transition-all duration-300 py-6 px-6 md:px-12" id="navbar">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="#" class="text-2xl font-serif font-bold tracking-wider text-white">HC <span class="text-gold-400">.</span></a>
+            
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="#about" class="text-sm uppercase tracking-widest hover:text-gold-400 transition-colors">About</a>
+                <a href="#services" class="text-sm uppercase tracking-widest hover:text-gold-400 transition-colors">Services</a>
+                <a href="#gallery" class="text-sm uppercase tracking-widest hover:text-gold-400 transition-colors">Gallery</a>
+                <a href="#contact" class="px-6 py-2 border border-gold-400 text-gold-400 hover:bg-gold-400 hover:text-black transition-all duration-300 uppercase text-xs tracking-widest font-bold">Book Now</a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden text-white hover:text-gold-400">
+                <i data-lucide="menu" class="w-8 h-8"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative h-screen flex items-center justify-center overflow-hidden clip-path-slant">
+        <!-- Background Image with Overlay -->
+        <div class="absolute inset-0 z-0">
+            <div class="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-black/40 z-10"></div>
+            <img 
+                src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" 
+                alt="Barbershop Interior" 
+                class="w-full h-full object-cover transform scale-105"
+                id="hero-bg"
+            >
+        </div>
+
+        <div class="relative z-20 text-center px-4 max-w-4xl mx-auto hero-content">
+            <p class="text-gold-400 uppercase tracking-[0.3em] text-sm md:text-base mb-6 opacity-0 translate-y-4">Est. 2024</p>
+            <h1 class="text-5xl md:text-8xl font-serif font-bold text-white mb-8 leading-tight opacity-0 translate-y-8">
+                The Art of <br>
+                <span class="text-gold-gradient italic">Turkish Grooming</span>
+            </h1>
+            <p class="text-gray-300 text-lg md:text-xl max-w-2xl mx-auto mb-12 font-light opacity-0 translate-y-8">
+                Experience the tradition of the hot towel shave and precision cutting in a modern, luxurious atmosphere.
+            </p>
+            <div class="opacity-0 translate-y-8 flex flex-col md:flex-row gap-4 justify-center">
+                <a href="#contact" class="px-8 py-4 bg-gold-400 text-black font-bold uppercase tracking-widest hover:bg-white transition-all duration-300">
+                    Book Appointment
+                </a>
+                <a href="#services" class="px-8 py-4 border border-white text-white font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-all duration-300">
+                    View Services
+                </a>
+            </div>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-20 animate-bounce hidden md:block">
+            <i data-lucide="chevron-down" class="text-white/50 w-8 h-8"></i>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 px-6 md:px-12 bg-dark-900 relative">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            <div class="relative about-image-container">
+                <div class="absolute -top-4 -left-4 w-24 h-24 border-t-2 border-l-2 border-gold-400 z-10"></div>
+                <div class="absolute -bottom-4 -right-4 w-24 h-24 border-b-2 border-r-2 border-gold-400 z-10"></div>
+                <img 
+                    src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" 
+                    alt="Barber Working" 
+                    class="w-full h-[500px] object-cover grayscale hover:grayscale-0 transition-all duration-700 shadow-2xl"
+                >
+            </div>
+            
+            <div class="about-text">
+                <h3 class="text-gold-400 uppercase tracking-widest font-bold mb-4">Our Heritage</h3>
+                <h2 class="text-4xl md:text-5xl font-serif text-white mb-6">More Than Just a Haircut</h2>
+                <div class="w-20 h-1 bg-gold-400 mb-8"></div>
+                <p class="text-gray-400 leading-relaxed mb-6">
+                    At HC Turkish Barbers, we blend time-honored Turkish traditions with modern styling techniques. Our barbers are masters of the blade, trained in the art of the hot towel shave, ear singeing, and precision fading.
+                </p>
+                <p class="text-gray-400 leading-relaxed mb-8">
+                    We believe every visit should be an experience, not just a service. Sit back with a complimentary Turkish tea or coffee, and let us refine your look with unparalleled attention to detail.
+                </p>
+                
+                <div class="grid grid-cols-2 gap-8 mt-8">
+                    <div>
+                        <h4 class="text-3xl font-serif text-white mb-2 counter" data-target="10">0</h4>
+                        <p class="text-xs uppercase tracking-widest text-gray-500">Years Experience</p>
+                    </div>
+                    <div>
+                        <h4 class="text-3xl font-serif text-white mb-2 counter" data-target="5000">0</h4>
+                        <p class="text-xs uppercase tracking-widest text-gray-500">Happy Clients</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-24 px-6 md:px-12 bg-dark-800">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-16">
+                <span class="text-gold-400 uppercase tracking-widest font-bold text-sm">Menu</span>
+                <h2 class="text-4xl md:text-5xl font-serif text-white mt-2 mb-4">Our Services</h2>
+                <div class="w-1 h-12 bg-gold-400 mx-auto"></div>
+            </div>
+
+            <div class="grid gap-6">
+                <!-- Service Item 1 -->
+                <div class="service-card p-6 border border-white/5 flex justify-between items-center group cursor-pointer bg-dark-900/50">
+                    <div class="flex items-center gap-6">
+                        <div class="w-12 h-12 rounded-full bg-gold-400/10 flex items-center justify-center text-gold-400 group-hover:bg-gold-400 group-hover:text-black transition-colors">
+                            <i data-lucide="scissors" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-serif text-white group-hover:text-gold-400 transition-colors">The Full Turkish</h3>
+                            <p class="text-sm text-gray-500 mt-1">Wash, Cut, Hot Towel Shave, Massage</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <span class="block text-2xl font-serif text-gold-400">£35</span>
+                        <span class="text-xs text-gray-600">60 Mins</span>
+                    </div>
+                </div>
+
+                <!-- Service Item 2 -->
+                <div class="service-card p-6 border border-white/5 flex justify-between items-center group cursor-pointer bg-dark-900/50">
+                    <div class="flex items-center gap-6">
+                        <div class="w-12 h-12 rounded-full bg-gold-400/10 flex items-center justify-center text-gold-400 group-hover:bg-gold-400 group-hover:text-black transition-colors">
+                            <i data-lucide="crown" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-serif text-white group-hover:text-gold-400 transition-colors">Luxury Shave</h3>
+                            <p class="text-sm text-gray-500 mt-1">Hot Towel, Straight Razor, Post-Shave Balm</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <span class="block text-2xl font-serif text-gold-400">£20</span>
+                        <span class="text-xs text-gray-600">30 Mins</span>
+                    </div>
+                </div>
+
+                <!-- Service Item 3 -->
+                <div class="service-card p-6 border border-white/5 flex justify-between items-center group cursor-pointer bg-dark-900/50">
+                    <div class="flex items-center gap-6">
+                        <div class="w-12 h-12 rounded-full bg-gold-400/10 flex items-center justify-center text-gold-400 group-hover:bg-gold-400 group-hover:text-black transition-colors">
+                            <i data-lucide="user" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-serif text-white group-hover:text-gold-400 transition-colors">Skin Fade & Style</h3>
+                            <p class="text-sm text-gray-500 mt-1">Precision Fade, Wash & Style</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <span class="block text-2xl font-serif text-gold-400">£25</span>
+                        <span class="text-xs text-gray-600">45 Mins</span>
+                    </div>
+                </div>
+
+                <!-- Service Item 4 -->
+                <div class="service-card p-6 border border-white/5 flex justify-between items-center group cursor-pointer bg-dark-900/50">
+                    <div class="flex items-center gap-6">
+                        <div class="w-12 h-12 rounded-full bg-gold-400/10 flex items-center justify-center text-gold-400 group-hover:bg-gold-400 group-hover:text-black transition-colors">
+                            <i data-lucide="zap" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-serif text-white group-hover:text-gold-400 transition-colors">Beard Trim & Shape</h3>
+                            <p class="text-sm text-gray-500 mt-1">Line up, Oil treatment</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <span class="block text-2xl font-serif text-gold-400">£15</span>
+                        <span class="text-xs text-gray-600">20 Mins</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery / Lookbook -->
+    <section id="gallery" class="py-24 bg-black">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12">
+                <div>
+                    <h2 class="text-4xl font-serif text-white mb-2">The Lookbook</h2>
+                    <p class="text-gray-500">Recent cuts from our master barbers.</p>
+                </div>
+                <a href="https://instagram.com" target="_blank" class="hidden md:flex items-center gap-2 text-gold-400 hover:text-white transition-colors mt-4 md:mt-0">
+                    <span>Follow on Instagram</span>
+                    <i data-lucide="instagram" class="w-4 h-4"></i>
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 h-[600px]">
+                <div class="relative overflow-hidden group h-full md:col-span-1 rounded-sm bg-gray-800">
+                    <img src="https://images.unsplash.com/photo-1647140655214-e4a2d914971f?q=80&w=765&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Skin Fade Haircut">
+                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <p class="text-white font-serif text-xl">Skin Fade</p>
+                    </div>
+                </div>
+                <div class="flex flex-col gap-4 h-full md:col-span-1">
+                    <div class="relative overflow-hidden group h-1/2 rounded-sm bg-gray-800">
+                        <img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Beard Grooming">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <p class="text-white font-serif text-xl">Beard Sculpting</p>
+                        </div>
+                    </div>
+                    <div class="relative overflow-hidden group h-1/2 rounded-sm bg-gray-800">
+                        <img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Classic Cut">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <p class="text-white font-serif text-xl">Classic Cut</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative overflow-hidden group h-full md:col-span-1 rounded-sm bg-gray-800">
+                    <img src="https://images.unsplash.com/photo-1653875700315-9d7d5a3cfa5e?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Barber Tools">
+                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <p class="text-white font-serif text-xl">Hot Towel Shave</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials / Quote -->
+    <section class="py-20 bg-gold-600 text-black text-center px-6">
+        <div class="max-w-3xl mx-auto">
+            <i data-lucide="quote" class="w-12 h-12 mx-auto mb-6 opacity-50"></i>
+            <h3 class="text-2xl md:text-4xl font-serif italic font-medium leading-normal mb-8">
+                "Best barber in town. The attention to detail is unmatched, and the hot towel shave is an absolute must-try."
+            </h3>
+            <div class="font-bold uppercase tracking-widest text-sm">— James Anderson, Loyal Customer</div>
+        </div>
+    </section>
+
+    <!-- Location & Contact -->
+    <section id="contact" class="bg-dark-900 py-24 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div>
+                <h2 class="text-4xl font-serif text-white mb-8">Visit Us</h2>
+                <div class="space-y-6">
+                    <div class="flex items-start gap-4">
+                        <div class="p-3 bg-dark-800 rounded text-gold-400">
+                            <i data-lucide="map-pin" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-white font-bold mb-1">Location</h4>
+                            <p class="text-gray-400">123 High Street, Barber District<br>London, UK</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start gap-4">
+                        <div class="p-3 bg-dark-800 rounded text-gold-400">
+                            <i data-lucide="clock" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-white font-bold mb-1">Opening Hours</h4>
+                            <ul class="text-gray-400 space-y-1">
+                                <li class="flex justify-between w-48"><span>Mon - Fri:</span> <span>9am - 7pm</span></li>
+                                <li class="flex justify-between w-48"><span>Saturday:</span> <span>9am - 6pm</span></li>
+                                <li class="flex justify-between w-48"><span>Sunday:</span> <span>10am - 4pm</span></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4">
+                        <div class="p-3 bg-dark-800 rounded text-gold-400">
+                            <i data-lucide="phone" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-white font-bold mb-1">Contact</h4>
+                            <p class="text-gray-400">+44 123 456 7890</p>
+                            <p class="text-gray-400">bookings@hcturkishbarbers.com</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-12">
+                     <button class="w-full md:w-auto px-10 py-4 bg-white text-black font-bold uppercase tracking-widest hover:bg-gold-400 transition-colors">
+                        Book Online
+                    </button>
+                </div>
+            </div>
+
+            <!-- Map Placeholder -->
+            <div class="h-[400px] w-full bg-dark-800 rounded-lg overflow-hidden relative group">
+                <!-- Using an image to simulate map for aesthetic purposes -->
+                <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Map Location" class="w-full h-full object-cover opacity-50 group-hover:opacity-70 transition-opacity">
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="bg-black/80 px-6 py-3 rounded backdrop-blur-sm border border-gold-400/30">
+                        <span class="text-gold-400 font-bold flex items-center gap-2">
+                            <i data-lucide="navigation" class="w-4 h-4"></i>
+                            Get Directions
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-8 border-t border-white/10 text-center">
+        <p class="text-gray-600 text-sm">© 2024 HC Turkish Barbers. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Register ScrollTrigger
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Loader Animation
+        const loaderTimeline = gsap.timeline();
+        
+        loaderTimeline
+            .to("#loader-text", { opacity: 1, duration: 1, ease: "power2.out" })
+            .to("#loader-line", { width: "100px", duration: 0.8, ease: "power2.inOut" })
+            .to("#loader-text", { y: -20, opacity: 0, duration: 0.5, delay: 0.5 })
+            .to("#loader-line", { width: "0", opacity: 0, duration: 0.5 }, "-=0.5")
+            .to(".loader", { yPercent: -100, duration: 1, ease: "power4.inOut" })
+            .from("#navbar", { y: -100, opacity: 0, duration: 0.8 }, "-=0.5")
+            // Hero Content Animation Start
+            .to(".hero-content p:first-child", { y: 0, opacity: 1, duration: 0.8 }, "-=0.3")
+            .to(".hero-content h1", { y: 0, opacity: 1, duration: 0.8 }, "-=0.6")
+            .to(".hero-content p:nth-of-type(2)", { y: 0, opacity: 1, duration: 0.8 }, "-=0.6")
+            .to(".hero-content div", { y: 0, opacity: 1, duration: 0.8 }, "-=0.6");
+
+        // Navbar Scroll Effect
+        window.addEventListener("scroll", () => {
+            const nav = document.getElementById("navbar");
+            if (window.scrollY > 50) {
+                nav.classList.add("bg-black/90", "backdrop-blur-md", "shadow-lg");
+                nav.classList.remove("py-6");
+                nav.classList.add("py-4");
+            } else {
+                nav.classList.remove("bg-black/90", "backdrop-blur-md", "shadow-lg");
+                nav.classList.add("py-6");
+                nav.classList.remove("py-4");
+            }
+        });
+
+        // About Section Parallax & Reveal
+        gsap.from(".about-image-container", {
+            scrollTrigger: {
+                trigger: "#about",
+                start: "top 80%",
+            },
+            x: -50,
+            opacity: 0,
+            duration: 1.2,
+            ease: "power3.out"
+        });
+
+        gsap.from(".about-text > *", {
+            scrollTrigger: {
+                trigger: "#about",
+                start: "top 70%",
+            },
+            y: 30,
+            opacity: 0,
+            duration: 1,
+            stagger: 0.1,
+            ease: "power3.out"
+        });
+
+        // Services Stagger Animation
+        gsap.from(".service-card", {
+            scrollTrigger: {
+                trigger: "#services",
+                start: "top 75%",
+            },
+            y: 50,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.15,
+            ease: "power2.out"
+        });
+
+        // Counter Animation for About Section
+        const counters = document.querySelectorAll('.counter');
+        counters.forEach(counter => {
+            const target = +counter.getAttribute('data-target');
+            
+            ScrollTrigger.create({
+                trigger: "#about",
+                start: "top 70%",
+                once: true,
+                onEnter: () => {
+                    gsap.to(counter, {
+                        innerHTML: target,
+                        duration: 2,
+                        snap: { innerHTML: 1 },
+                        ease: "power1.inOut"
+                    });
+                }
+            });
+        });
+
+        // Gallery Fade In
+        gsap.from("#gallery img", {
+            scrollTrigger: {
+                trigger: "#gallery",
+                start: "top 80%", // Adjusted trigger point to be earlier
+            },
+            scale: 1.1,
+            opacity: 0,
+            duration: 1,
+            stagger: 0.1,
+            ease: "power2.out",
+            clearProps: "all" // Ensure opacity doesn't get stuck
+        });
+
+        // Smooth Parallax on Hero Image
+        gsap.to("#hero-bg", {
+            scrollTrigger: {
+                trigger: "header",
+                start: "top top",
+                end: "bottom top",
+                scrub: true
+            },
+            y: 100,
+            scale: 1.1
+        });
+
+    </script>
+</body>
+</html>
